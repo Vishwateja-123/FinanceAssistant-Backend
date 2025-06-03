@@ -1,19 +1,15 @@
-from flask import Flask, jsonify
-from flask_cors import CORS
+@app.route('/ask', methods=['POST'])
+def ask():
+    user_message = request.json.get('message', '')
+    
+    if 'spend' in user_message.lower():
+        response = "You spent $450 last month on groceries and rent."
+    elif 'save' in user_message.lower():
+        response = "You saved $150 last month by cooking at home!"
+    else:
+        response = "I'm still learning! Can you rephrase your question?"
 
-app = Flask(__name__)
-CORS(app)
-
-@app.route('/')
-def home():
-    return jsonify({"message": "Backend is running!"})
-
-@app.route('/expenses')
-def expenses():
-    return jsonify([
-        {"name": "Groceries", "amount": 50},
-        {"name": "Transport", "amount": 30}
-    ])
+    return jsonify({"response": response})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run()
