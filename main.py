@@ -1,12 +1,9 @@
-import os
 from flask import Flask, jsonify
+from flask_cors import CORS  # ✅ This line enables CORS
 
 app = Flask(__name__)
+CORS(app)  # ✅ This allows requests from your frontend
 
-@app.route("/")
+@app.route('/')
 def home():
     return jsonify({"message": "Backend is running!"})
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))  # Render assigns the port
-    app.run(host="0.0.0.0", port=port)
